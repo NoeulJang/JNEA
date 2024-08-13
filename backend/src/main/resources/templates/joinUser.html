@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+</head>
+<script th:inline="javascript">
+    function submit (){
+
+        var password = document.getElementById("userPassword").value;
+        var repeatUserPassword = document.getElementById("repeatUserPassword").value;
+
+        if(password != repeatUserPassword){
+            document.getElementById("repeatUserPassword").className = "form-control form-control-user fieldError";
+            document.getElementById("repeatUserPasswordPtag").style.display = "block";
+            return false;
+        }
+
+        var form = document.form;
+        form.submit();
+    }
+</script>
+
+<body class="bg-gradient-primary">
+
+    <div class="container">
+
+        <div class="card o-hidden border-0 shadow-lg my-5">
+            <div class="card-body p-0">
+                <!-- Nested Row within Card Body -->
+                <div class="row">
+                    <div class="col-lg-5 d-none d-lg-block bg-register-image"></div>
+                    <div class="col-lg-7">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">회원가입</h1>
+                            </div>
+                            <!-- th:field 는 id랑 name 을 자동 생성해줌-->
+                            <form role="form" action="/user/join" th:object="${userForm}" method="post" class="user" name="form">
+                                <div class="form-group">
+                                    <input type="text" th:field="*{userId}"
+                                        th:class="${#fields.hasErrors('userId')} ? 'form-control form-control-user fieldError' : 'form-control form-control-user' "
+                                        placeholder="아이디">
+                                    <p th:if="${#fields.hasErrors('userId')}" th:errors="*{userId}"/>
+                                </div>
+                                <div class="form-group">
+                                    <input type="text" th:field="*{userNickName}"
+                                        th:class="${#fields.hasErrors('userNickName')} ? 'form-control form-control-user fieldError' : 'form-control form-control-user' "
+                                        placeholder="닉네임">
+                                    <p th:if="${#fields.hasErrors('userNickName')}" th:errors="*{userNickName}"/>
+                                </div>
+                                <div class="form-group row">
+                                    <div class="col-sm-6 mb-3 mb-sm-0">
+                                        <input type="password" th:field="*{userPassword}"
+                                            th:class="${#fields.hasErrors('userPassword')} ? 'form-control form-control-user fieldError' : 'form-control form-control-user' "
+                                            placeholder="비밀번호">
+                                        <p th:if="${#fields.hasErrors('userPassword')}" th:errors="*{userPassword}"/>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <input type="password" class="form-control form-control-user"
+                                            id="repeatUserPassword" placeholder="비밀번호 확인">
+                                        <p id="repeatUserPasswordPtag" style="display: none;">비밀번호가 틀립니다.</p>
+                                    </div>
+                                </div>
+                                <a href="javascript:void(0);" class="btn btn-primary btn-user btn-block" th:onclick="submit();">
+                                    회원가입
+                                </a>
+                                <hr>
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="small" href="forgot-password.html">비밀번호 찾기</a>
+                            </div>
+                            <div class="text-center">
+                                <a class="small" href="/login">로그인</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</body>
+
+</html>

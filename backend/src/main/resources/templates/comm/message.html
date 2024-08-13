@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/header :: header}">
+</head>
+<script th:inline="javascript">
+
+
+    document.addEventListener("DOMContentLoaded", function(){
+        var form = document.form;
+        var returnPage = "/" + [[${returnPage}]];
+        form.action = returnPage;
+
+        document.getElementById("urlTag").href = returnPage;
+    
+        console.log([[${returnPage}]]);
+
+        setTimeout(function() {
+            form.submit();
+        }, 5000);
+    });
+
+</script>
+
+<body id="page-top">
+    <!-- Begin Page Content -->
+    <div class="container-fluid">
+
+        <form id="form", name="form">
+        </form>
+        <div class="text-center">
+            <p class="lead text-gray-800 mb-5">[[${message}]]</p>
+            <p class="lead text-gray-800 mb-5">5초뒤에 페이지가 이동합니다.</p>
+            <a href="#" id="urlTag">&larr; [[${subMessage}]]</a>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+</body>
+
+</html>
