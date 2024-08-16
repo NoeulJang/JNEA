@@ -19,15 +19,12 @@ public class MemberPrincipalDetailsService implements UserDetailsService {
     private final LoginRepository loginRepository;
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
 
-        User user = loginRepository.findByUserId(username);
-
-        log.info("userId :: " + user.getUserId());
-        log.info("userNickName :: " + user.getUserNickName());
+        User user = loginRepository.findByUserId(userId);
 
         if(user == null)
-            throw new UnsupportedOperationException("Unimplemented method 'loadUserByUsername'");
+            throw new UsernameNotFoundException("존재하지 않는 계정입니다.");
 
         return new MemberPrincipalDetails(user);
     }

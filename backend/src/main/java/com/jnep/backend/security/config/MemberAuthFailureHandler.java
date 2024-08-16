@@ -19,8 +19,12 @@ public class MemberAuthFailureHandler extends SimpleUrlAuthenticationFailureHand
 
         session.setAttribute("loginErrorMessage", exception.getMessage());
 
+        System.out.println("loginErrorMessage :: " + exception.getMessage());
+
         setDefaultFailureUrl("/login");
 
+        request.setAttribute("loginErrorMessage", exception.getMessage());
+        
         super.onAuthenticationFailure(request, response, exception);
     }
 }

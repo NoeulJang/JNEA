@@ -52,7 +52,7 @@ public class UserService {
     //DB에 unique 제약 조건을 걸어 주는 것이 좋음
     private void validateDuplicateUser(User user){
         List<User> byIds = userRepository.findById(user.getUserId());
-        if(!byIds.isEmpty()) throw new IllegalTransactionStateException("이미 존재하는 아이디입니다.");
+        if(byIds == null) throw new IllegalTransactionStateException("이미 존재하는 아이디입니다.");
     }
 
     /*
@@ -67,6 +67,12 @@ public class UserService {
      */
     public User findOne(Long userSeq) {
         return userRepository.findOne(userSeq);
+    }
+    /*
+     * 회원 단건 조회
+     */
+    public List<User> findById(String id) {
+        return userRepository.findById(id);
     }
 
 }

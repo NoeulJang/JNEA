@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-
+<html
+    xmlns:th="http://www.thymeleaf.org"
+    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <script th:inline="javascript">
 </script>
 
@@ -57,10 +58,18 @@
 
         <!-- Nav Item - User Information -->
         <li class="nav-item dropdown no-arrow">
-            <div class="nav-link dropdown-toggle">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><a href="/user/join">회원가입</a></span>
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><a href="/login">로그인</a></span>
-            </div>
+            <th:block sec:authorize="isAuthenticated()">
+                <div class="nav-link dropdown-toggle">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><a href="/logout">로그아웃</a></span>
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><a href="/myPage">마이페이지</a></span>
+                </div>
+            </th:block>
+            <th:block sec:authorize="isAnonymous()">
+                <div class="nav-link dropdown-toggle">
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><a href="/join">회원가입</a></span>
+                    <span class="mr-2 d-none d-lg-inline text-gray-600 small"><a href="/login">로그인</a></span>
+                </div>
+            </th:block>
             <!--
             <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

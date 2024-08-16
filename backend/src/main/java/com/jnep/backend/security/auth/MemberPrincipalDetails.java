@@ -12,10 +12,10 @@ import com.jnep.backend.domain.User;
 
 public class MemberPrincipalDetails implements UserDetails{
 
-    private final User user = new User();
+    private final User user;
 
-    public MemberPrincipalDetails(User user2) {
-        //TODO Auto-generated constructor stub
+    public MemberPrincipalDetails(User user) {
+        this.user = user;
     }
 
     public User getUser(){
@@ -26,7 +26,7 @@ public class MemberPrincipalDetails implements UserDetails{
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
 
-        authorities.add(new SimpleGrantedAuthority(user.getAuthId()));
+        authorities.add(new SimpleGrantedAuthority("user"));
         
         return authorities;
     }
@@ -40,7 +40,7 @@ public class MemberPrincipalDetails implements UserDetails{
     public String getUsername() {
         return user.getUserNickName();
     }
-
+    
     public String getUserId() {
         return user.getUserId();
     }

@@ -34,7 +34,7 @@
                                 <h1 class="h4 text-gray-900 mb-4">회원가입</h1>
                             </div>
                             <!-- th:field 는 id랑 name 을 자동 생성해줌-->
-                            <form role="form" action="/user/join" th:object="${userForm}" method="post" class="user" name="form">
+                            <form role="form" action="/join" th:object="${userForm}" method="post" class="user" name="form">
                                 <div class="form-group">
                                     <input type="text" th:field="*{userId}"
                                         th:class="${#fields.hasErrors('userId')} ? 'form-control form-control-user fieldError' : 'form-control form-control-user' "

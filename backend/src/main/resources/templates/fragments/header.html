@@ -4,6 +4,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
+    <!-- csrf 토큰 :: form 태그로 요청할 경우 hidden 태그의 value로 담고, ajax일 경우 헤더 설정을 통해 토큰을 넣어야 합니다. -->
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
     <title>Health A Cat</title>
 
@@ -36,3 +39,5 @@
     <script src="/bootstrap/js/demo/chart-pie-demo.js"></script>
     
 </head>
+
+<input type="hidden" id="csrfToken" name="_csrf" th:value="${csrfToken}">

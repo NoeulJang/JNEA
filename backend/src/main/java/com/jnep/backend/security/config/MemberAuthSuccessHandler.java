@@ -8,6 +8,7 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationSu
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 public class MemberAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
     
@@ -15,6 +16,10 @@ public class MemberAuthSuccessHandler extends SimpleUrlAuthenticationSuccessHand
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication exception) throws IOException, ServletException {
 
 
+        HttpSession session = request.getSession();
+
+        session.removeAttribute("loginErrorMessage");
+        
         setDefaultTargetUrl("/");
 
         super.onAuthenticationSuccess(request, response, exception);

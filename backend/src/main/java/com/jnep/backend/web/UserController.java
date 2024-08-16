@@ -1,5 +1,7 @@
 package com.jnep.backend.web;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -24,29 +26,44 @@ public class UserController {
     
     private final UserService userService;
 
-    @GetMapping("/user/join")
+    private final PasswordEncoder passwordEncoder;
+
+    @GetMapping("/join")
     public String goJoin(Model model) {
         model.addAttribute("userForm", new UserForm());
         return "joinUser";
     }
 
-    @PostMapping("/user/join")
+    @PostMapping("/join")
     public String join(@Valid UserForm form, BindingResult result, Model model){
 
         if(result.hasErrors()){
             return "joinUser";
         }
 
+        String encodedPassword = passwordEncoder.encode(form.getUserPassword());
+
+        log.info("encodedPassword :: " + encodedPassword);
+
         User user = new User();
         user.setUserId(form.getUserId());
         user.setUserNickName(form.getUserNickName());
-        user.setUserPassword(form.getUserPassword());
+        user.setUserPassword(encodedPassword);
 
         userService.join(user);
 
         CommUtil.goSuccessPage(model, MessageUtil.joinSuccess(), "메인 페이지로 돌아가기", "");
 
         return "comm/message";
+    }
+
+    @GetMapping("/myPage")
+    public String goMypqge(Model model, Authentication authentication) {
+
+        String id = authentication.getName();
+        userService.findById(id);
+        model.addAttribute("userForm", new UserForm());
+        return "myPage";
     }
 
 }
