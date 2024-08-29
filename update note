@@ -1,3 +1,5 @@
 update -- 8.13 -회원가입, spring security 로그인 페이지 구현
 
 update -- 8.17 - spring security 로직 수정, 로그아웃 기능 추가
+
+update -- 8.29 - 고양이 등록 로직 추가, QueryDsl사용으로 인한 설정 추가, 고양이 사진 등록을 위한 파일 업로드 유틸 및 미리보기 로직 추가
