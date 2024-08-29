@@ -1,5 +1,7 @@
 package com.jnep.backend.web;
 
+import java.util.List;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -11,7 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.jnep.backend.Util.CommUtil;
 import com.jnep.backend.Util.MessageUtil;
 import com.jnep.backend.domain.User;
-import com.jnep.backend.form.UserForm;
+import com.jnep.backend.dto.UserForm;
 import com.jnep.backend.service.UserService;
 
 import jakarta.validation.Valid;
@@ -58,12 +60,37 @@ public class UserController {
     }
 
     @GetMapping("/myPage")
-    public String goMypqge(Model model, Authentication authentication) {
+    public String goMyPqge(Model model, Authentication authentication) {
 
         String id = authentication.getName();
-        userService.findById(id);
-        model.addAttribute("userForm", new UserForm());
+
+        List<User> byId = userService.findById(id);
+
+        User user = new User(
+            byId.get(0).getUserSeq()
+            , byId.get(0).getUserId()
+            , byId.get(0).getUserNickName()
+            , byId.get(0).getUserPassword()
+            , byId.get(0).getAuthId()
+            , byId.get(0).getCats());
+
+        UserForm userForm = new UserForm(user.getUserId(), null, user.getUserNickName(), user.getUserSeq());
+
+        model.addAttribute("userForm", userForm);
+
         return "myPage";
+    }
+
+    @PostMapping("/myPage")
+    public String updateMyPage(UserForm userForm, Model model) {
+
+        User user = new User(null, null, userForm.getUserNickName(), null, null, null);
+
+        userService.saveNickName(userForm.getUserSeq(), user);
+
+        CommUtil.goSuccessPage(model, MessageUtil.UpdateSuccess(), "메인 페이지로 돌아가기", "");
+
+        return "comm/message";
     }
 
 }

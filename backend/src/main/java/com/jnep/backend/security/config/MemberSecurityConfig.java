@@ -44,7 +44,7 @@ public class MemberSecurityConfig {
             .csrf(csrf -> csrf
                 .csrfTokenRequestHandler(requestHandler)
                 .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
-                .ignoringRequestMatchers("/", "/bootstrap/**", "/logout/**", "/login/**", "/join/**")
+                .ignoringRequestMatchers("/", "/bootstrap/**", "/logout/**", "/login/**", "/join/**", "/myPage/**")
             )
             .authorizeHttpRequests(request -> request
                 .requestMatchers("/bootstrap/**").permitAll()   //resources 의 static 경로 모두 허용

@@ -2,14 +2,26 @@ spring:
 
     application:
         name: backend
-
+    servlet:
+        multipart:
+            file-size-threshold: 1MB
+            location: C:/Temp
+            max-file-size: 300MB
+            max-request-size: 300MB
     datasource:
         driver-class-name: com.mysql.cj.jdbc.Driver
         url: jdbc:mysql://localhost:3306/jnep?serverTimezone=Asia/Seoul
         username: jnepuser
         password: qwe123
 
+    devtools:
+        livereload:
+            enabled: true
+        restart:
+            enabled: false
     thymeleaf:
+        cache: false
+        enabled: true
         prefix: classpath:/templates/
         suffix: .html
 
@@ -18,6 +30,7 @@ spring:
         #database-platform: org.hibernate.dialect.MySQLDialect
         hibernate:
             ddl-auto: create
+            #ddl-auto: none
         properties:
             hibernate:
                 #"[]" 로 감싸지 않으면 특수문자 때문에 에러 발생
@@ -41,3 +54,6 @@ logging:
 
 server:
     port: 8000
+
+file:
+    dir: C:\JNEP_FILE_UPLOAD\

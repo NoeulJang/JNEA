@@ -46,6 +46,17 @@ public class UserService {
     }
 
     /*
+     * 회원 정보 수정
+    */
+    @Transactional
+    public void saveNickName (Long userSeq, User user){
+        //준영속 엔티티의 변경감지 기능을 사용하여 수정
+        //임의로 만들어낸 엔티티도 기존 식별자를 가지고 있으면 준영속 엔티티로 간주하여 jpa가 수정작업을 진행함
+        User findUser = userRepository.findOne(userSeq);
+        findUser.setUserNickName(user.getUserNickName());
+    }
+
+    /*
      * 회원 아이디 중복 체크
      */
     //실무에서 어쩌다 두명의 사용자가 동시에 같은 아이디를 사용 시 발생할 에러를 대비하여

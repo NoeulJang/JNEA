@@ -13,13 +13,12 @@ java {
 	}
 }
 
-//lombok 설정 추가 시작
+//lombok 설정 추가
 configurations {
     compileOnly {
         extendsFrom annotationProcessor
     }
 }
-//lombok 설정 추가 끝
 
 repositories {
 	mavenCentral()
@@ -40,8 +39,7 @@ dependencies {
 	//jakarata.validation 사용하기위함
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 
-	//오토 컴플리먼트(html파일 자동으로 새로고침, vs코드의 경우 setting[ctrl + ,] - hot code replace검색 - Reload the changed Java classes during debugging. => auto로 
-	// 설정한뒤 debug모드로 실행해야함.)
+	//오토 컴플리먼트 관련 툴
 	implementation 'org.springframework.boot:spring-boot-devtools'
 
 	//쿼리 로그 파라미터 까지 보이게
@@ -52,7 +50,12 @@ dependencies {
     annotationProcessor 'org.projectlombok:lombok'
     testCompileOnly 'org.projectlombok:lombok'
     testAnnotationProcessor 'org.projectlombok:lombok'
-	// LOMBOK E
+
+	//QueryDsl
+	implementation 'com.querydsl:querydsl-jpa:5.0.0:jakarta'
+	annotationProcessor "com.querydsl:querydsl-apt:5.0.0:jakarta"
+	annotationProcessor "jakarta.annotation:jakarta.annotation-api"
+	annotationProcessor "jakarta.persistence:jakarta.persistence-api"
 }
 
 tasks.named('test') {

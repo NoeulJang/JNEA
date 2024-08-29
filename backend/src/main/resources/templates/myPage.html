@@ -4,16 +4,6 @@
 </head>
 <script th:inline="javascript">
     function submit (){
-
-        var password = document.getElementById("userPassword").value;
-        var repeatUserPassword = document.getElementById("repeatUserPassword").value;
-
-        if(password != repeatUserPassword){
-            document.getElementById("repeatUserPassword").className = "form-control form-control-user fieldError";
-            document.getElementById("repeatUserPasswordPtag").style.display = "block";
-            return false;
-        }
-
         var form = document.form;
         form.submit();
     }
@@ -42,54 +32,30 @@
                     <div class="row" style="display: block;">
 
                         <!-- Fade In Utility -->
-                        <form role="form" th:object="${userForm}" method="post" class="user" name="form">
+                        <form role="form" th:object="${userForm}" method="post" class="user" name="form" action="/myPage">
+                            <input type="hidden" th:name="_csrf" th:value="${_csrf.token}"/>
                             <div class="col-lg-6" style="max-width: 100%;">
+                                
+                                <input style="display:none;" th:field="*{userSeq}"></input>
 
                                 <div class="card position-relative">
                                     <div class="card-header py-3">
-                                        <h6 class="m-0 font-weight-bold text-primary">Fade In Animation Utilty</h6>
+                                        <h6 class="m-0 font-weight-bold text-primary">회원정보</h6>
                                     </div>
                                     <div class="card-body">
-                                        <div class="mb-3">
-                                            <code>.animated--fade-in</code>
-                                        </div>
-                                        <div class="small mb-1">Navbar Dropdown Example:</div>
+                                        <div class="mb-1">아이디</div>
                                         <nav class="navbar navbar-expand navbar-light bg-light mb-4">
-                                            <a class="navbar-brand" href="#">Navbar</a>
-                                            <ul class="navbar-nav ml-auto">
-                                                <li class="nav-item dropdown">
-                                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
-                                                        role="button" data-toggle="dropdown" aria-haspopup="true"
-                                                        aria-expanded="false">
-                                                        Dropdown
-                                                    </a>
-                                                    <div class="dropdown-menu dropdown-menu-right animated--fade-in"
-                                                        aria-labelledby="navbarDropdown">
-                                                        <a class="dropdown-item" href="#">Action</a>
-                                                        <a class="dropdown-item" href="#">Another action</a>
-                                                        <div class="dropdown-divider"></div>
-                                                        <a class="dropdown-item" href="#">Something else here</a>
-                                                    </div>
-                                                </li>
-                                            </ul>
+                                            <a class="navbar-brand" href="#" th:text="*{userId}"></a>
                                         </nav>
-                                        <div class="small mb-1">Dropdown Button Example:</div>
-                                        <div class="dropdown mb-4">
-                                            <button class="btn btn-primary dropdown-toggle" type="button"
-                                                id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true"
-                                                aria-expanded="false">
-                                                Dropdown
-                                            </button>
-                                            <div class="dropdown-menu animated--fade-in"
-                                                aria-labelledby="dropdownMenuButton">
-                                                <a class="dropdown-item" href="#">Action</a>
-                                                <a class="dropdown-item" href="#">Another action</a>
-                                                <a class="dropdown-item" href="#">Something else here</a>
-                                            </div>
-                                        </div>
-                                        <p class="mb-0 small">Note: This utility animates the CSS opacity property, meaning
-                                            it will override any existing opacity on an element being animated!</p>
+
+                                        <div class="mb-1">닉네임</div>
+                                        <nav class="navbar navbar-expand navbar-light bg-light mb-4">
+                                            <input class="navbar-brand" href="#" th:field="*{userNickName}"></input>
+                                        </nav>
                                     </div>
+                                    <a href="#" class="btn btn-primary btn-icon-split" style="width: 50%; align-self: center;" th:onclick="submit();">
+                                        <span class="text">저장하기</span>
+                                    </a>
                                 </div>
 
                             </div>
@@ -104,13 +70,7 @@
             <!-- End of Main Content -->
 
             <!-- Footer -->
-            <footer class="sticky-footer bg-white">
-                <div class="container my-auto">
-                    <div class="copyright text-center my-auto">
-                        <span>Copyright &copy; Your Website 2020</span>
-                    </div>
-                </div>
-            </footer>
+            <div th:replace="~{fragments/footer :: footer}" />
             <!-- End of Footer -->
 
         </div>
